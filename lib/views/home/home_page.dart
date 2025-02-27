@@ -121,7 +121,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                body: controller.pages[controller.selectedIndex.value],
+                body: Obx(
+                  () => controller.pages[controller.selectedIndex.value],
+                ),
               ),
             ),
           ],
