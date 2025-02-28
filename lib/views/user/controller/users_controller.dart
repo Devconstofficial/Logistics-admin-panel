@@ -28,133 +28,133 @@ class UserController extends GetxController {
         'status': 'Active',
       },
       {
-        'id': '00002',
+        'id': '00003',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00001',
+        'id': '00004',
         'name': 'Christine Brooks',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Blocked',
       },
       {
-        'id': '00002',
+        'id': '00005',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00002',
+        'id': '00006',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00001',
+        'id': '00007',
         'name': 'Christine Brooks',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Blocked',
       },
       {
-        'id': '00002',
+        'id': '00008',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00002',
+        'id': '00009',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00001',
+        'id': '000010',
         'name': 'Christine Brooks',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Blocked',
       },
       {
-        'id': '00002',
+        'id': '000011',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00002',
+        'id': '000012',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00001',
+        'id': '000013',
         'name': 'Christine Brooks',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Blocked',
       },
       {
-        'id': '00002',
+        'id': '000014',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00002',
+        'id': '000015',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00001',
+        'id': '000016',
         'name': 'Christine Brooks',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Blocked',
       },
       {
-        'id': '00002',
+        'id': '000017',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00002',
+        'id': '000018',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00001',
+        'id': '000019',
         'name': 'Christine Brooks',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Blocked',
       },
       {
-        'id': '00002',
+        'id': '000020',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
       },
       {
-        'id': '00002',
+        'id': '000021',
         'name': 'Rosie Pearson',
         'orders': 15,
         'date': '2025-01-01',
@@ -165,45 +165,15 @@ class UserController extends GetxController {
     filteredUsers.assignAll(users);
   }
 
-  // List<Map<String, dynamic>> get paginatedUsers {
-  //   int start = (currentPage.value - 1) * itemsPerPage;
-  //   int end = start + itemsPerPage;
-  //   var list = filteredUsers;
-  //   return list.sublist(start, end > list.length ? list.length : end);
-  // }
-
-  // void toggleStatusSelection(String status) {
-  //   if (selectedStatuses.contains(status)) {
-  //     selectedStatuses.remove(status);
-  //   } else {
-  //     selectedStatuses.add(status);
-  //   }
-
-  //   if (selectedStatuses.isEmpty) {
-  //     filteredUsers.assignAll(users);
-  //   } else {
-  //     filteredUsers.assignAll(
-  //       users
-  //           .where((user) => selectedStatuses.contains(user['status']))
-  //           .toList(),
-  //     );
-  //   }
-
-  //   currentPage.value = 1;
-  //   update();
-  // }
-
   List<Map<String, dynamic>> get paginatedUsers {
     int start = (currentPage.value - 1) * itemsPerPage;
     int end = start + itemsPerPage;
-    var list = filteredUsers; // Apply pagination to filtered users
+    var list = filteredUsers;
 
-    if (start >= list.length)
-      return []; // Prevents RangeError if page is out of bounds
+    if (start >= list.length) return [];
     return list.sublist(start, end > list.length ? list.length : end);
   }
 
-  // Toggle selection of a status and update filtered users
   void toggleStatusSelection(String status) {
     if (selectedStatuses.contains(status)) {
       selectedStatuses.remove(status);
@@ -211,7 +181,6 @@ class UserController extends GetxController {
       selectedStatuses.add(status);
     }
 
-    // If no status is selected, show all users
     if (selectedStatuses.isEmpty) {
       filteredUsers.assignAll(users);
     } else {
@@ -222,8 +191,45 @@ class UserController extends GetxController {
       );
     }
 
-    // Reset pagination when filtering users
     currentPage.value = 1;
+
+    int totalPages = (filteredUsers.length / itemsPerPage).ceil();
+    if (currentPage.value > totalPages) {
+      currentPage.value = totalPages > 0 ? totalPages : 1;
+    }
+
     update();
+  }
+
+  void deleteUser(String userId) {
+    users.removeWhere((user) => user['id'] == userId);
+    filteredUsers.removeWhere((user) => user['id'] == userId);
+
+    int totalPages = (filteredUsers.length / itemsPerPage).ceil();
+    if (currentPage.value > totalPages) {
+      currentPage.value = totalPages > 0 ? totalPages : 1;
+    }
+
+    update();
+  }
+
+  void updateUserStatus(String userId, String newStatus) {
+    int index = users.indexWhere((user) => user['id'] == userId);
+    if (index != -1) {
+      users[index] = {...users[index], 'status': newStatus};
+
+      int filteredIndex = filteredUsers.indexWhere(
+        (user) => user['id'] == userId,
+      );
+      if (filteredIndex != -1) {
+        filteredUsers[filteredIndex] = {
+          ...filteredUsers[filteredIndex],
+          'status': newStatus,
+        };
+      }
+
+      users.refresh();
+      filteredUsers.refresh();
+    }
   }
 }

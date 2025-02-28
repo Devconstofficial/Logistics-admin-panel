@@ -12,3 +12,4 @@ const Color kGreyColor = Color(0xFF979797);
 const Color kGreyShadeColor = Color(0xFFD5D5D5);
 const Color kGreyShade1Color = Color(0xFF626262);
 const Color kGreyShade2Color = Color(0xFF272727);
+const Color kGreyShade3Color = Color(0xFFCED4DA);

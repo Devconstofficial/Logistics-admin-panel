@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:logistics_admin_panel/common_widgets/custom_back_next_button.dart';
 import 'package:logistics_admin_panel/common_widgets/custom_button.dart';
 import 'package:logistics_admin_panel/common_widgets/custom_table.dart';
+import 'package:logistics_admin_panel/common_widgets/delete_confirmation_dialog.dart';
 import 'package:logistics_admin_panel/common_widgets/filter_widget.dart';
+import 'package:logistics_admin_panel/common_widgets/user_info_dialog.dart';
 import 'package:logistics_admin_panel/utils/app_colors.dart';
 import 'package:logistics_admin_panel/utils/app_styles.dart';
 import 'package:logistics_admin_panel/views/user/controller/users_controller.dart';
@@ -35,7 +37,33 @@ class UserScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: getHeight(24)),
-              CustomTable(),
+              Obx(
+                () => CustomTable(
+                  list: controller.paginatedUsers,
+                  onDelete: controller.deleteUser,
+                  statusOptions: controller.statuses,
+                  onUpdate: (userId, newStatus) {
+                    controller.updateUserStatus(userId, newStatus);
+                  },
+                  onViewDetail: (user) {
+                    Get.dialog(
+                      UserInfoDialog(
+                        user: user,
+                        onDelete: () {
+                          Get.dialog(
+                            DeleteConfirmationDialog(
+                              onConfirm: () {
+                                controller.deleteUser;
+                                Get.back();
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
               SizedBox(height: getHeight(22)),
               Obx(
                 () => Row(
@@ -51,7 +79,8 @@ class UserScreen extends StatelessWidget {
                     ),
                     SizedBox(width: getWidth(6)),
                     ...List.generate(
-                      (controller.users.length / controller.itemsPerPage)
+                      (controller.filteredUsers.length /
+                              controller.itemsPerPage)
                           .ceil(),
                       (index) => Padding(
                         padding: EdgeInsets.symmetric(horizontal: getWidth(3)),
@@ -77,9 +106,11 @@ class UserScreen extends StatelessWidget {
                     CustomBackNextButton(
                       isBack: false,
                       onTap: () {
-                        if (controller.currentPage.value <
-                            (controller.users.length / controller.itemsPerPage)
-                                .ceil()) {
+                        int totalPages =
+                            (controller.filteredUsers.length /
+                                    controller.itemsPerPage)
+                                .ceil();
+                        if (controller.currentPage.value < totalPages) {
                           controller.currentPage.value++;
                         }
                       },
