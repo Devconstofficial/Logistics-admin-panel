@@ -3,12 +3,20 @@ import 'package:get/get.dart';
 import 'package:logistics_admin_panel/utils/app_colors.dart';
 import 'package:logistics_admin_panel/utils/app_images.dart';
 import 'package:logistics_admin_panel/utils/app_styles.dart';
-import 'package:logistics_admin_panel/views/user/controller/users_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class FilterWidget extends StatelessWidget {
   final String title;
-  const FilterWidget({super.key, required this.title});
+  final List<String> statuses;
+  final RxSet<String> selectedStatuses;
+  final Function(String status, bool isSelected) onStatusToggle;
+  const FilterWidget({
+    super.key,
+    required this.title,
+    required this.statuses,
+    required this.selectedStatuses,
+    required this.onStatusToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +48,12 @@ class FilterWidget extends StatelessWidget {
             height: double.infinity,
             child: VerticalDivider(color: kGreyColor, thickness: 0.3),
           ),
-          StatusFilterPopup(title: title),
+          StatusFilterPopup(
+            title: title,
+            statuses: statuses,
+            selectedStatuses: selectedStatuses,
+            onStatusToggle: onStatusToggle,
+          ),
         ],
       ),
     );
@@ -49,9 +62,17 @@ class FilterWidget extends StatelessWidget {
 
 class StatusFilterPopup extends StatelessWidget {
   final String title;
-  final UserController controller = Get.find();
+  final List<String> statuses;
+  final RxSet<String> selectedStatuses;
+  final Function(String status, bool isSelected) onStatusToggle;
 
-  StatusFilterPopup({super.key, required this.title});
+  const StatusFilterPopup({
+    super.key,
+    required this.title,
+    required this.statuses,
+    required this.selectedStatuses,
+    required this.onStatusToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +93,7 @@ class StatusFilterPopup extends StatelessWidget {
       ),
       onSelected: (_) {},
       itemBuilder: (BuildContext context) {
-        return controller.statuses.map((String status) {
+        return statuses.map((String status) {
           return PopupMenuItem<String>(
             value: status,
             child: Row(
@@ -82,9 +103,11 @@ class StatusFilterPopup extends StatelessWidget {
                     activeColor: kPrimaryColor,
                     checkColor: kSecondaryColor,
                     side: BorderSide(color: kWhiteColor),
-                    value: controller.selectedStatuses.contains(status),
+                    value: selectedStatuses.contains(status),
                     onChanged: (bool? isChecked) {
-                      controller.toggleStatusSelection(status);
+                      if (isChecked != null) {
+                        onStatusToggle(status, isChecked);
+                      }
                     },
                   ),
                 ),

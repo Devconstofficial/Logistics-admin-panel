@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logistics_admin_panel/common_widgets/custom_button.dart';
 import 'package:logistics_admin_panel/utils/app_colors.dart';
+import 'package:logistics_admin_panel/utils/app_images.dart';
 import 'package:logistics_admin_panel/utils/app_styles.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -18,15 +19,14 @@ class UserInfoDialog extends StatelessWidget {
       backgroundColor: kSecondaryColor,
       insetPadding: EdgeInsets.zero,
       child: Container(
-        width: getWidth(550),
+        width: getWidth(700),
         padding: EdgeInsets.symmetric(
           horizontal: getWidth(24),
-          vertical: getHeight(20),
+          vertical: getHeight(24),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Header
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -34,7 +34,7 @@ class UserInfoDialog extends StatelessWidget {
                   "General Info",
                   style: AppStyles.whiteTextStyle().copyWith(
                     fontWeight: FontWeight.w600,
-                    fontSize: 15.sp,
+                    fontSize: 14.sp,
                   ),
                 ),
                 InkWell(
@@ -44,11 +44,10 @@ class UserInfoDialog extends StatelessWidget {
               ],
             ),
 
-            SizedBox(height: getHeight(10)),
-            Divider(color: kWhiteColor.withOpacity(0.3), thickness: 0.5),
-            SizedBox(height: getHeight(10)),
+            SizedBox(height: getHeight(20)),
+            Divider(color: kWhiteColor, thickness: 0.4),
+            SizedBox(height: getHeight(24)),
 
-            // User Info & Profile Image
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -64,20 +63,16 @@ class UserInfoDialog extends StatelessWidget {
                             "Rating:  ",
                             style: AppStyles.whiteTextStyle().copyWith(
                               fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Icon(
-                            Icons.star,
-                            color: Colors.yellow,
-                            size: getHeight(16),
-                          ),
+                          Icon(Icons.star, color: kPrimaryColor, size: 16.sp),
                           SizedBox(width: getWidth(4)),
                           Text(
                             "${user['rating'] ?? 4.5} (${user['reviews'] ?? 100} reviews)",
                             style: AppStyles.whiteTextStyle().copyWith(
                               fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
@@ -94,16 +89,16 @@ class UserInfoDialog extends StatelessWidget {
                   ),
                 ),
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Image.network(
-                    user['profileImage'] ?? "https://via.placeholder.com/150",
-                    width: getHeight(70),
-                    height: getHeight(70),
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.asset(
+                    kUser,
+                    width: getHeight(126),
+                    height: getHeight(126),
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
-                        width: getHeight(70),
-                        height: getHeight(70),
+                        width: getHeight(126),
+                        height: getHeight(126),
                         decoration: BoxDecoration(
                           color: kGreyShadeColor,
                           shape: BoxShape.circle,
@@ -119,11 +114,12 @@ class UserInfoDialog extends StatelessWidget {
                 ),
               ],
             ),
-
+            SizedBox(height: getHeight(20)),
+            Divider(color: kWhiteColor, thickness: 0.4),
             SizedBox(height: getHeight(30)),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomButton(
                   height: 55,
@@ -139,6 +135,7 @@ class UserInfoDialog extends StatelessWidget {
                   width: 150,
                   borderRadius: 8,
                   textSize: 13,
+                  textColor: kSecondaryColor,
                   color: kPrimaryColor,
                   borderColor: kPrimaryColor,
                   title: "Delete User",
@@ -163,7 +160,7 @@ class UserInfoDialog extends StatelessWidget {
           "$label:  ",
           style: AppStyles.whiteTextStyle().copyWith(
             fontSize: 14.sp,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
           ),
         ),
         Text(

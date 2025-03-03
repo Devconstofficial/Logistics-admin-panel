@@ -9,12 +9,14 @@ class StatusUpdateDialog extends StatefulWidget {
   final String currentStatus;
   final List<String> statusOptions;
   final Function(String) onUpdate;
+  final String title;
 
   const StatusUpdateDialog({
     super.key,
     required this.currentStatus,
     required this.statusOptions,
     required this.onUpdate,
+    required this.title,
   });
 
   @override
@@ -57,7 +59,7 @@ class _StatusUpdateDialogState extends State<StatusUpdateDialog> {
             ),
             SizedBox(height: getHeight(32)),
             Text(
-              "User Status",
+              "${widget.title} Status",
               style: AppStyles.whiteTextStyle().copyWith(fontSize: 14.sp),
             ),
             SizedBox(height: getHeight(10)),

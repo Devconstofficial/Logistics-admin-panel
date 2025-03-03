@@ -27,7 +27,14 @@ class UserScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FilterWidget(title: "User Status"),
+              FilterWidget(
+                title: "User Status",
+                statuses: controller.statuses,
+                selectedStatuses: controller.selectedStatuses,
+                onStatusToggle: (status, isSelected) {
+                  controller.toggleStatusSelection(status);
+                },
+              ),
               SizedBox(height: getHeight(32)),
               Text(
                 "Registered Users",
@@ -40,6 +47,11 @@ class UserScreen extends StatelessWidget {
               Obx(
                 () => CustomTable(
                   list: controller.paginatedUsers,
+                  labels: ['User ID', 'Name', 'Orders', 'Registration Date'],
+                  val1: 'name',
+                  val2: 'orders',
+                  val3: 'date',
+                  title: 'Booking',
                   onDelete: controller.deleteUser,
                   statusOptions: controller.statuses,
                   onUpdate: (userId, newStatus) {
@@ -53,7 +65,7 @@ class UserScreen extends StatelessWidget {
                           Get.dialog(
                             DeleteConfirmationDialog(
                               onConfirm: () {
-                                controller.deleteUser;
+                                controller.deleteUser(user['id']);
                                 Get.back();
                               },
                             ),

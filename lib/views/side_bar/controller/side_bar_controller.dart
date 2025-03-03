@@ -1,7 +1,9 @@
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:logistics_admin_panel/utils/app_images.dart';
+import 'package:logistics_admin_panel/views/booking/booking_screen.dart';
+import 'package:logistics_admin_panel/views/chat/chat_screen.dart';
 import 'package:logistics_admin_panel/views/dashboard/dashboard_screen.dart';
+import 'package:logistics_admin_panel/views/driver/driver_screen.dart';
 import 'package:logistics_admin_panel/views/user/users_screen.dart';
 
 class SideBarController extends GetxController {
@@ -19,8 +21,8 @@ class SideBarController extends GetxController {
       [
         DashboardScreen(),
         UserScreen(),
-        Container(),
-        Container(),
-        Container(),
+        DriverScreen(),
+        BookingScreen(),
+        ChatScreen(),
       ].obs;
 }
