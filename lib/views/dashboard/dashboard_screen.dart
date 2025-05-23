@@ -78,12 +78,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
         children: [
           Text(
             title,
-            style:
-                AppStyles.blackTextStyle()..copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14.sp,
-                  color: textColor,
-                ),
+            style: AppStyles.blackTextStyle().copyWith(
+              fontWeight: FontWeight.w500,
+              fontSize: 14.sp,
+              color: textColor,
+            ),
           ),
           SizedBox(height: getHeight(8)),
           Text(
