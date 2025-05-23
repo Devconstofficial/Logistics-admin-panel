@@ -30,6 +30,7 @@ class TotalRevenueChart extends StatelessWidget {
                 "Total Revenue",
                 style: AppStyles.whiteTextStyle().copyWith(
                   fontWeight: FontWeight.w600,
+                  fontSize: 14.sp,
                 ),
               ),
               SizedBox(width: getHeight(17)),
@@ -40,7 +41,7 @@ class TotalRevenueChart extends StatelessWidget {
                   color: kWhiteShadeColor.withOpacity(0.2),
                 ),
               ),
-              SizedBox(width: getWidth(16)),
+              SizedBox(width: getWidth(17)),
               Row(
                 children: [
                   Container(
@@ -84,7 +85,7 @@ class TotalRevenueChart extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: getHeight(20)),
+          SizedBox(height: getHeight(40)),
           SizedBox(
             height: getHeight(244),
             child: SfCartesianChart(
@@ -94,6 +95,7 @@ class TotalRevenueChart extends StatelessWidget {
                 labelStyle: AppStyles.whiteTextStyle().copyWith(
                   fontSize: 13.sp,
                 ),
+                majorGridLines: const MajorGridLines(width: 0),
               ),
               primaryYAxis: NumericAxis(
                 minimum: 0,
@@ -101,6 +103,9 @@ class TotalRevenueChart extends StatelessWidget {
                 interval: 10,
                 labelStyle: AppStyles.whiteTextStyle().copyWith(
                   fontSize: 13.sp,
+                ),
+                majorGridLines: MajorGridLines(
+                  color: kWhiteShadeColor.withOpacity(0.2),
                 ),
               ),
               series: <CartesianSeries>[
