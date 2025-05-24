@@ -5,6 +5,11 @@ import 'package:logistics_admin_panel/utils/app_colors.dart';
 import 'package:logistics_admin_panel/views/dashboard/controller/dashboard_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../utils/app_styles.dart';
+import '../../common_widgets/booking_info_dialog.dart';
+import '../../common_widgets/custom_back_next_button.dart';
+import '../../common_widgets/custom_button.dart';
+import '../../common_widgets/custom_table.dart';
+import '../../common_widgets/delete_confirmation_dialog.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -28,21 +33,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             Obx(
               () => Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   _buildCard(
-                    "Total Sender",
+                    "Total Active Bookings",
                     controller.totalSenders.value,
                     kPrimaryColor,
                     textColor: kBlackColor,
                   ),
                   _buildCard(
-                    "Total Drivers",
+                    "Total Completed",
                     controller.totalDrivers.value,
                     kBlueColor,
                   ),
                   _buildCard(
+                    "Canceled Bookings",
+                    controller.totalRevenueThisMonth.value,
+                    kPurpleColor,
+                  ),
+                  _buildCard(
                     "Revenue This Month",
+                    "\$${controller.totalRevenueThisMonth.value}",
+                    kDarkGreenColor,
+                  ),
+                  _buildCard(
+                    "Revenue All Time",
                     "\$${controller.totalRevenueThisMonth.value}",
                     kGreenColor,
                   ),
@@ -51,6 +65,109 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             SizedBox(height: getHeight(32)),
             const TotalRevenueChart(),
+            SizedBox(height: getHeight(32)),
+            Text(
+              "Active Bookings",
+              style: AppStyles.whiteTextStyle().copyWith(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: getHeight(24)),
+            Obx(
+                  () => CustomTable(
+                list: controller.paginatedUsers,
+                labels: [
+                  'Booking ID',
+                  'User Name',
+                  'Driver Name ',
+                  'Vehicle Type',
+                  'Price',
+                ],
+                val1: 'userName',
+                val2: 'driverName',
+                val3: 'vehicleType',
+                val4: 'price',
+                title: 'price',
+                isBooking: true,
+                onDelete: controller.deleteBooking,
+                statusOptions: controller.statuses,
+                onUpdate: (userId, newStatus) {
+                  controller.updateBookingStatus(userId, newStatus);
+                },
+                onViewDetail: (booking) {
+                  Get.dialog(
+                    BookingInfoDialog(
+                      booking: booking,
+                      onDelete: () {
+                        Get.dialog(
+                          DeleteConfirmationDialog(
+                            onConfirm: () {
+                              controller.deleteBooking(booking['id']);
+                              Get.back();
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: getHeight(22)),
+            Obx(
+                  () => Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomBackNextButton(
+                    isBack: true,
+                    onTap: () {
+                      if (controller.currentPage.value > 1) {
+                        controller.currentPage.value--;
+                      }
+                    },
+                  ),
+                  SizedBox(width: getWidth(6)),
+                  ...List.generate(
+                    (controller.filteredBookings.length /
+                        controller.itemsPerPage)
+                        .ceil(),
+                        (index) => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: getWidth(3)),
+                      child: CustomButton(
+                        height: 45,
+                        width: 45,
+                        title: "${index + 1}",
+                        color:
+                        controller.currentPage.value == index + 1
+                            ? kBlueColor
+                            : Colors.transparent,
+                        borderColor:
+                        controller.currentPage.value == index + 1
+                            ? kBlueColor
+                            : kWhiteColor,
+                        onTap: () {
+                          controller.currentPage.value = index + 1;
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: getWidth(6)),
+                  CustomBackNextButton(
+                    isBack: false,
+                    onTap: () {
+                      int totalPages =
+                      (controller.filteredBookings.length /
+                          controller.itemsPerPage)
+                          .ceil();
+                      if (controller.currentPage.value < totalPages) {
+                        controller.currentPage.value++;
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -80,7 +197,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             title,
             style: AppStyles.blackTextStyle().copyWith(
               fontWeight: FontWeight.w500,
-              fontSize: 14.sp,
+              fontSize: 14,
               color: textColor,
             ),
           ),
@@ -88,7 +205,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Text(
             value,
             style: AppStyles.blackTextStyle().copyWith(
-              fontSize: 16.sp,
+              fontSize: 24,
               fontWeight: FontWeight.w600,
               color: textColor,
             ),

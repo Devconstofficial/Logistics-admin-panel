@@ -22,7 +22,7 @@ class FilterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: getHeight(75),
-      width: getWidth(360),
+      width: getWidth(365),
       padding: EdgeInsets.symmetric(horizontal: getWidth(12)),
       decoration: BoxDecoration(
         color: kWhiteColor.withOpacity(0.05),

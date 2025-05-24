@@ -112,12 +112,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   bottom: PreferredSize(
                     preferredSize: const Size.fromHeight(
                       1.0,
-                    ), // Height of the bottom border
+                    ),
                     child: Container(
                       color: kWhiteColor.withOpacity(
                         0.1,
-                      ), // Color of the bottom border
-                      height: 1.0, // Thickness of the bottom border
+                      ),
+                      height: 1.0,
                     ),
                   ),
                 ),

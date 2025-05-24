@@ -73,6 +73,26 @@ class DriverInfoDialog extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(width: getWidth(27)),
+                    InkWell(
+                      onTap: () {
+                        controller.selectedTab.value = "Reviews";
+                      },
+                      child: Obx(
+                            () => Text(
+                          "Reviews",
+                          style: AppStyles.whiteTextStyle().copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14.sp,
+                            color:
+                            controller.selectedTab.value ==
+                                "Reviews"
+                                ? kPrimaryColor
+                                : kWhiteColor,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 InkWell(
@@ -88,7 +108,7 @@ class DriverInfoDialog extends StatelessWidget {
               () =>
                   controller.selectedTab.value == "General Info"
                       ? _buildDriverDetail()
-                      : _buildRegisteredCars(),
+                      : controller.selectedTab.value == "Registered Cars" ? _buildRegisteredCars() : _buildReviews(),
             ),
             SizedBox(height: getHeight(20)),
             Divider(color: kWhiteColor, thickness: 0.4),
@@ -249,6 +269,46 @@ class DriverInfoDialog extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildReviews() {
+    return SizedBox(
+      height: getHeight(250),
+      child: ListView.builder(
+        itemCount: 2,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.only(bottom: getHeight(30.0)),
+            child: Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 6,
+              children: [
+                _buildInfoText("Booking ID", "INV-1021"),
+                _buildInfoText("Customer", "Ali Khan"),
+                Row(
+                  children: [
+                    Text(
+                      "Rating:  ",
+                      style: AppStyles.whiteTextStyle().copyWith(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Icon(Icons.star, color: kPrimaryColor, size: 16.sp),
+                    SizedBox(width: 2,),
+                    Icon(Icons.star, color: kPrimaryColor, size: 16.sp),
+                    SizedBox(width: 2,),
+                    Icon(Icons.star, color: kPrimaryColor, size: 16.sp),
+                  ],
+                ),
+                _buildInfoText("Comment", "Very professional and fast."),
               ],
             ),
           );

@@ -3,10 +3,13 @@ import 'package:get/get.dart';
 class UserController extends GetxController {
   final List<String> statuses = ['Active', 'Blocked'];
   var selectedStatuses = <String>{}.obs;
+  var selectedStatus = '10'.obs;
+  final List<String> options = ['10', '20', '30'];
   var currentPage = 1.obs;
-  final int itemsPerPage = 8;
+  final int itemsPerPage = 3;
   var users = <Map<String, dynamic>>[].obs;
   var filteredUsers = <Map<String, dynamic>>[].obs;
+  var selectedTab = 'General Info'.obs;
 
   @override
   void onInit() {
@@ -19,6 +22,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Blocked',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '00002',
@@ -26,6 +31,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '00003',
@@ -33,6 +40,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '00004',
@@ -40,6 +49,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Blocked',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '00005',
@@ -47,6 +58,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '00006',
@@ -54,6 +67,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '00007',
@@ -61,6 +76,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Blocked',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '00008',
@@ -68,6 +85,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '00009',
@@ -75,6 +94,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '000010',
@@ -82,6 +103,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Blocked',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '000011',
@@ -89,6 +112,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '000012',
@@ -96,6 +121,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '000013',
@@ -103,6 +130,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Blocked',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '000014',
@@ -110,6 +139,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
+        'discounts': '4547',
+        'disPer': "10"
       },
       {
         'id': '000015',
@@ -117,48 +148,8 @@ class UserController extends GetxController {
         'orders': 15,
         'date': '2025-01-01',
         'status': 'Active',
-      },
-      {
-        'id': '000016',
-        'name': 'Christine Brooks',
-        'orders': 15,
-        'date': '2025-01-01',
-        'status': 'Blocked',
-      },
-      {
-        'id': '000017',
-        'name': 'Rosie Pearson',
-        'orders': 15,
-        'date': '2025-01-01',
-        'status': 'Active',
-      },
-      {
-        'id': '000018',
-        'name': 'Rosie Pearson',
-        'orders': 15,
-        'date': '2025-01-01',
-        'status': 'Active',
-      },
-      {
-        'id': '000019',
-        'name': 'Christine Brooks',
-        'orders': 15,
-        'date': '2025-01-01',
-        'status': 'Blocked',
-      },
-      {
-        'id': '000020',
-        'name': 'Rosie Pearson',
-        'orders': 15,
-        'date': '2025-01-01',
-        'status': 'Active',
-      },
-      {
-        'id': '000021',
-        'name': 'Rosie Pearson',
-        'orders': 15,
-        'date': '2025-01-01',
-        'status': 'Active',
+        'discounts': '4547',
+        'disPer': "10"
       },
     ]);
 

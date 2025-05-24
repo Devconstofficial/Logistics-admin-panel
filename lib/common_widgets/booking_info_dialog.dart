@@ -21,108 +21,141 @@ class BookingInfoDialog extends StatelessWidget {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       backgroundColor: kSecondaryColor,
-      insetPadding: EdgeInsets.zero,
+      insetPadding: EdgeInsets.symmetric(vertical: 30),
       child: SizedBox(
         width: getWidth(700),
 
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildMap(
-              booking['pickupLat'],
-              booking['pickupLng'],
-              booking['dropoffLat'],
-              booking['dropoffLng'],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: getWidth(24),
-                vertical: getHeight(24),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildMap(
+                booking['pickupLat'],
+                booking['pickupLng'],
+                booking['dropoffLat'],
+                booking['dropoffLng'],
               ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              controller.selectedTab.value = "User";
-                            },
-                            child: Obx(
-                              () => Text(
-                                "User",
-                                style: AppStyles.whiteTextStyle().copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14.sp,
-                                  color:
-                                      controller.selectedTab.value == "User"
-                                          ? kPrimaryColor
-                                          : kWhiteColor,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: getWidth(24),
+                  vertical: getHeight(24),
+                ),
+                child: Column(
+                  children: [
+          
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                controller.selectedTab.value = "User";
+                              },
+                              child: Obx(
+                                () => Text(
+                                  "User",
+                                  style: AppStyles.whiteTextStyle().copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.sp,
+                                    color:
+                                        controller.selectedTab.value == "User"
+                                            ? kPrimaryColor
+                                            : kWhiteColor,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(width: getWidth(27)),
-                          InkWell(
-                            onTap: () {
-                              controller.selectedTab.value = "Driver";
-                            },
-                            child: Obx(
-                              () => Text(
-                                "Driver",
-                                style: AppStyles.whiteTextStyle().copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14.sp,
-                                  color:
-                                      controller.selectedTab.value == "Driver"
-                                          ? kPrimaryColor
-                                          : kWhiteColor,
+                            SizedBox(width: getWidth(27)),
+                            InkWell(
+                              onTap: () {
+                                controller.selectedTab.value = "Receiver Info";
+                              },
+                              child: Obx(
+                                () => Text(
+                                  "Receiver Info",
+                                  style: AppStyles.whiteTextStyle().copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.sp,
+                                    color:
+                                        controller.selectedTab.value == "Receiver Info"
+                                            ? kPrimaryColor
+                                            : kWhiteColor,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      InkWell(
-                        onTap: () => Get.back(),
-                        child: Icon(Icons.close, color: kWhiteColor),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: getHeight(20)),
-                  Divider(color: kWhiteColor, thickness: 0.4),
-                  SizedBox(height: getHeight(24)),
-                  Obx(
-                    () =>
-                        controller.selectedTab.value == "User"
-                            ? _buildUserDetail()
-                            : _buildDriverDetail(),
-                  ),
-                  SizedBox(height: getHeight(20)),
-                  Divider(color: kWhiteColor, thickness: 0.4),
-                  SizedBox(height: getHeight(30)),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomButton(
-                        height: 55,
-                        width: 90,
-                        borderRadius: 8,
-                        textSize: 13,
-                        title: "Cancel",
-                        onTap: () => Get.back(),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(height: getHeight(10)),
-                ],
+                            SizedBox(width: getWidth(27)),
+                            InkWell(
+                              onTap: () {
+                                controller.selectedTab.value = "Review";
+                              },
+                              child: Obx(
+                                    () => Text(
+                                  "Review",
+                                  style: AppStyles.whiteTextStyle().copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.sp,
+                                    color:
+                                    controller.selectedTab.value == "Review"
+                                        ? kPrimaryColor
+                                        : kWhiteColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        InkWell(
+                          onTap: () => Get.back(),
+                          child: Icon(Icons.close, color: kWhiteColor),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: getHeight(20)),
+                    Divider(color: kWhiteColor, thickness: 0.4),
+                    SizedBox(height: getHeight(24)),
+                    Obx(
+                      () =>
+                          controller.selectedTab.value == "User"
+                              ? _buildUserDetail()
+                              : controller.selectedTab.value == "Receiver Info" ? _buildReceiverDetail() : _buildReviewDetail(),
+                    ),
+                    SizedBox(height: getHeight(20)),
+                    Divider(color: kWhiteColor, thickness: 0.4),
+                    SizedBox(height: getHeight(30)),
+          
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomButton(
+                          height: 55,
+                          width: 90,
+                          borderRadius: 8,
+                          textSize: 13,
+                          title: "Cancel",
+                          onTap: () => Get.back(),
+                        ),
+                        CustomButton(
+                          height: 55,
+                          width: 150,
+                          borderRadius: 8,
+                          textSize: 13,
+                          color: kPrimaryColor,
+                          borderColor: kPrimaryColor,
+                          textColor: kBlackColor,
+                          title: "Reassign Driver",
+                          onTap: () => Get.back(),
+                        ),
+                      ],
+                    ),
+          
+                    SizedBox(height: getHeight(10)),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -212,30 +245,9 @@ class BookingInfoDialog extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildInfoText("Name", booking['userName'] ?? "N/A"),
+              _buildInfoText("Customer", booking['userName'] ?? "N/A"),
               SizedBox(height: getHeight(6)),
-              Row(
-                children: [
-                  Text(
-                    "Rating:  ",
-                    style: AppStyles.whiteTextStyle().copyWith(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Icon(Icons.star, color: kPrimaryColor, size: 16.sp),
-                  SizedBox(width: getWidth(4)),
-                  Text(
-                    "${booking['rating'] ?? 4.5} (${booking['reviews'] ?? 100} reviews)",
-                    style: AppStyles.whiteTextStyle().copyWith(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: getHeight(6)),
-              _buildInfoText("Email", booking['email'] ?? "N/A"),
+              _buildInfoText("Driver", booking['driverName'] ?? "N/A"),
               SizedBox(height: getHeight(6)),
               _buildInfoText(
                 "Pickup Location",
@@ -247,11 +259,31 @@ class BookingInfoDialog extends StatelessWidget {
                 booking['dropoffLocation'] ?? "N/A",
               ),
               SizedBox(height: getHeight(6)),
-              _buildInfoText("Vehicle Type", booking['location'] ?? "N/A"),
+              Text(
+                "Item Image:  ",
+                style: AppStyles.whiteTextStyle().copyWith(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               SizedBox(height: getHeight(6)),
-              _buildInfoText("Status", booking['status'] ?? "N/A"),
+              Container(
+                height: 84,
+                width: 84,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18)
+                ),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child: Image.asset(kPackage,fit: BoxFit.cover)),
+              ),
+              _buildInfoText("Scheduled", "No"),
               SizedBox(height: getHeight(6)),
-              _buildInfoText("Price", booking['price'].toString()),
+              _buildInfoText("Payment", "Paid via Stripe"),
+              SizedBox(height: getHeight(6)),
+              _buildInfoText("Delivery Code", "4372"),
+              SizedBox(height: getHeight(6)),
+              _buildInfoText("Status", "In Transit"),
             ],
           ),
         ),
@@ -280,79 +312,28 @@ class BookingInfoDialog extends StatelessWidget {
     );
   }
 
-  Widget _buildDriverDetail() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+  Widget _buildReceiverDetail() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildInfoText("Name", booking['driverName'] ?? "N/A"),
-              SizedBox(height: getHeight(6)),
-              Row(
-                children: [
-                  Text(
-                    "Rating:  ",
-                    style: AppStyles.whiteTextStyle().copyWith(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Icon(Icons.star, color: kPrimaryColor, size: 16.sp),
-                  SizedBox(width: getWidth(4)),
-                  Text(
-                    "${booking['rating'] ?? 4.5} (${booking['reviews'] ?? 100} reviews)",
-                    style: AppStyles.whiteTextStyle().copyWith(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: getHeight(6)),
-              _buildInfoText("Email", booking['email'] ?? "N/A"),
-              SizedBox(height: getHeight(6)),
-              _buildInfoText(
-                "Pickup Location",
-                booking['pickupLocation'] ?? "N/A",
-              ),
-              SizedBox(height: getHeight(6)),
-              _buildInfoText(
-                "Drop-off Location",
-                booking['dropoffLocation'] ?? "N/A",
-              ),
-              SizedBox(height: getHeight(6)),
-              _buildInfoText("Vehicle Type", booking['location'] ?? "N/A"),
-              SizedBox(height: getHeight(6)),
-              _buildInfoText("Status", booking['status'] ?? "N/A"),
-              SizedBox(height: getHeight(6)),
-              _buildInfoText("Price", booking['price'].toString()),
-            ],
-          ),
-        ),
-        Image.asset(
-          kUser,
-          width: getWidth(126),
-          height: getHeight(126),
-
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              width: getWidth(126),
-              height: getHeight(126),
-              decoration: BoxDecoration(
-                color: kGreyShadeColor,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.person,
-                size: getHeight(40),
-                color: kWhiteColor,
-              ),
-            );
-          },
-        ),
+        _buildInfoText("Name", "Ali Khan"),
+        SizedBox(height: getHeight(6)),
+        _buildInfoText("Phone", "0321XXXXXXX"),
+        SizedBox(height: getHeight(6)),
+        _buildInfoText("Address", "123 Main St"),
       ],
     );
   }
+
+  Widget _buildReviewDetail() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildInfoText("Customer Review", "outstanding experience ⭐ 3"),
+        SizedBox(height: getHeight(6)),
+        _buildInfoText("Driver review", "outstanding experience ⭐ 3"),
+      ],
+    );
+  }
+
 }

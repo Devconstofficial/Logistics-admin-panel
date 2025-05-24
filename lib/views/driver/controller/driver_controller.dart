@@ -4,7 +4,7 @@ class DriverController extends GetxController {
   final List<String> statuses = ['Active', 'Blocked'];
   var selectedStatuses = <String>{}.obs;
   var currentPage = 1.obs;
-  final int itemsPerPage = 8;
+  final int itemsPerPage = 3;
   var drivers = <Map<String, dynamic>>[].obs;
   var filteredDrivers = <Map<String, dynamic>>[].obs;
   var selectedTab = 'General Info'.obs;
@@ -107,55 +107,6 @@ class DriverController extends GetxController {
       },
       {
         'id': '000014',
-        'name': 'Rosie Pearson',
-        'jobs': 15,
-        'date': '2025-01-01',
-        'status': 'Active',
-      },
-      {
-        'id': '000015',
-        'name': 'Rosie Pearson',
-        'jobs': 15,
-        'date': '2025-01-01',
-        'status': 'Active',
-      },
-      {
-        'id': '000016',
-        'name': 'Christine Brooks',
-        'jobs': 15,
-        'date': '2025-01-01',
-        'status': 'Blocked',
-      },
-      {
-        'id': '000017',
-        'name': 'Rosie Pearson',
-        'jobs': 15,
-        'date': '2025-01-01',
-        'status': 'Active',
-      },
-      {
-        'id': '000018',
-        'name': 'Rosie Pearson',
-        'jobs': 15,
-        'date': '2025-01-01',
-        'status': 'Active',
-      },
-      {
-        'id': '000019',
-        'name': 'Christine Brooks',
-        'jobs': 15,
-        'date': '2025-01-01',
-        'status': 'Blocked',
-      },
-      {
-        'id': '000020',
-        'name': 'Rosie Pearson',
-        'jobs': 15,
-        'date': '2025-01-01',
-        'status': 'Active',
-      },
-      {
-        'id': '000021',
         'name': 'Rosie Pearson',
         'jobs': 15,
         'date': '2025-01-01',
