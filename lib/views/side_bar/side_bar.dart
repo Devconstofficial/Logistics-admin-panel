@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logistics_admin_panel/utils/app_colors.dart';
 import 'package:logistics_admin_panel/utils/app_images.dart';
+import 'package:logistics_admin_panel/utils/app_strings.dart';
 import 'package:logistics_admin_panel/utils/app_styles.dart';
 import 'package:logistics_admin_panel/views/side_bar/controller/side_bar_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -100,7 +101,9 @@ class SideBarWidget extends StatelessWidget {
                         const Spacer(),
                         Expanded(
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(kAuthScreenRoute);
+                            },
                             child: Center(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

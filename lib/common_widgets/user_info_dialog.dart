@@ -12,17 +12,14 @@ import 'add_discount_dialog.dart';
 class UserInfoDialog extends StatelessWidget {
   final Map<String, dynamic> user;
   final VoidCallback onDelete;
-
   final UserController controller = Get.find();
-
-
 
   UserInfoDialog({super.key, required this.user, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30),side: BorderSide(color: kPrimaryColor)),
       backgroundColor: kSecondaryColor,
       insetPadding: EdgeInsets.zero,
       child: Container(
@@ -243,6 +240,7 @@ class UserInfoDialog extends StatelessWidget {
             ),
 
             SizedBox(height: getHeight(10)),
+
           ],
         ),)
       ),

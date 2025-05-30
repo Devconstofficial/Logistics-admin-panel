@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:logistics_admin_panel/views/auth/controller/auth_controller.dart';
 import 'package:logistics_admin_panel/views/booking/controller/booking_controller.dart';
 import 'package:logistics_admin_panel/views/chat/controller/chat_controller.dart';
 import 'package:logistics_admin_panel/views/company/controller/company_controller.dart';
@@ -19,5 +20,6 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => ChatController());
     Get.lazyPut(() => FaqsController());
     Get.lazyPut(() => CompanyController());
+    Get.lazyPut(() => AuthController());
   }
 }

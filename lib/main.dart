@@ -27,8 +27,9 @@ class MyApp extends StatelessWidget {
               theme: buildTheme(Brightness.light),
               title: 'Logistics Admin Panel',
               debugShowCheckedModeBanner: false,
+              defaultTransition: Transition.noTransition,
               initialBinding: ScreenBindings(),
-              initialRoute: kHomeScreenRoute,
+              initialRoute: kAuthScreenRoute,
               getPages: RouteGenerator.getPages(),
               builder: (context, child) {
                 return MediaQuery(

@@ -18,7 +18,7 @@ class DriverInfoDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30),side: BorderSide(color: kPrimaryColor)),
       backgroundColor: kSecondaryColor,
       insetPadding: EdgeInsets.zero,
       child: Container(

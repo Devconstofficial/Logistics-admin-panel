@@ -59,23 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   actions:
                       constraint.maxWidth > 800
                           ? [
-                            Container(
-                              height: getHeight(40),
-                              width: getWidth(38),
-                              decoration: BoxDecoration(
-                                color: kWhiteColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Center(
-                                child: Image.asset(
-                                  kNotificationIcon,
-                                  height: getHeight(25),
-                                  width: getWidth(25),
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: getWidth(25)),
-
                             Image.asset(
                               kAvatar,
                               height: getHeight(60),
@@ -101,11 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                               ],
                             ),
-                            SizedBox(width: getWidth(60)),
-                            Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              color: kWhiteColor,
-                            ),
+
                             SizedBox(width: getWidth(40)),
                           ]
                           : null,

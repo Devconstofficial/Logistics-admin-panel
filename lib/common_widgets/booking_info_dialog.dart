@@ -19,7 +19,8 @@ class BookingInfoDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30),side: BorderSide(color: kPrimaryColor)),
+
       backgroundColor: kSecondaryColor,
       insetPadding: EdgeInsets.symmetric(vertical: 30),
       child: SizedBox(
@@ -198,41 +199,45 @@ class BookingInfoDialog extends StatelessWidget {
     return SizedBox(
       height: getHeight(300),
       width: double.infinity,
-      child: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(pickupLat, pickupLng),
-          zoom: 12,
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(topRight: Radius.circular(14),topLeft: Radius.circular(14)),
+        child: GoogleMap(
+          
+          initialCameraPosition: CameraPosition(
+            target: LatLng(pickupLat, pickupLng),
+            zoom: 12,
+          ),
+          markers: {
+            Marker(
+              markerId: MarkerId("pickup"),
+              position: LatLng(pickupLat, pickupLng),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueBlue,
+              ),
+              infoWindow: InfoWindow(title: "Pickup Location"),
+            ),
+            Marker(
+              markerId: MarkerId("dropoff"),
+              position: LatLng(dropoffLat, dropoffLng),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueRed,
+              ),
+              infoWindow: InfoWindow(title: "Drop-off Location"),
+            ),
+          },
+          polylines: {
+            Polyline(
+              polylineId: PolylineId("route"),
+              color: kPrimaryColor,
+              width: 3,
+              points: [
+                LatLng(pickupLat, pickupLng),
+                LatLng(dropoffLat, dropoffLng),
+              ],
+              patterns: [PatternItem.dash(10), PatternItem.gap(5)],
+            ),
+          },
         ),
-        markers: {
-          Marker(
-            markerId: MarkerId("pickup"),
-            position: LatLng(pickupLat, pickupLng),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-              BitmapDescriptor.hueBlue,
-            ),
-            infoWindow: InfoWindow(title: "Pickup Location"),
-          ),
-          Marker(
-            markerId: MarkerId("dropoff"),
-            position: LatLng(dropoffLat, dropoffLng),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-              BitmapDescriptor.hueRed,
-            ),
-            infoWindow: InfoWindow(title: "Drop-off Location"),
-          ),
-        },
-        polylines: {
-          Polyline(
-            polylineId: PolylineId("route"),
-            color: kPrimaryColor,
-            width: 3,
-            points: [
-              LatLng(pickupLat, pickupLng),
-              LatLng(dropoffLat, dropoffLng),
-            ],
-            patterns: [PatternItem.dash(10), PatternItem.gap(5)],
-          ),
-        },
       ),
     );
   }
