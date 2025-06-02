@@ -24,3 +24,4 @@ String kCar = "$basePath/car.png";
 String kUser1 = "$basePath/user1.png";
 String kPackage = "$basePath/package.jpg";
 String kAuthCarImage = "$basePath/authCar.png";
+String kLogo = "$basePath/logo.png";
